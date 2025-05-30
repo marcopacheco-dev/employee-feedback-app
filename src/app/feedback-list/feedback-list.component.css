@@ -1,0 +1,236 @@
+.table-container {
+  max-width: 900px;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.feedback-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.feedback-table th, .feedback-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.feedback-table thead {
+  background: #1976d2;
+  color: #fff;
+}
+
+.feedback-table tbody tr:nth-child(even) {
+  background: #f5f5f5;
+}
+
+.feedback-table tbody tr:hover {
+  background: #e3f2fd;
+}
+
+.positivo {
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.negativo {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.loading-msg, .empty-msg, .error-msg {
+  text-align: center;
+  margin: 24px 0;
+  font-size: 1.1em;
+}
+
+.error-msg {
+  color: #e53935;
+}
+
+.empty-msg {
+  color: #757575;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 90vw;
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeInBackdrop 0.2s;
+}
+
+@keyframes fadeInBackdrop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: #fff;
+  padding: 32px 24px 24px 24px;
+  border-radius: 12px;
+  min-width: 320px;
+  max-width: 95vw;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  animation: modalFadeIn 0.25s;
+}
+
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-top: 2px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes modalFadeIn {
+  from { transform: translateY(-30px) scale(0.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.close {
+  position: absolute;
+  top: 12px; right: 18px;
+  font-size: 28px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 10;
+}
+.close:hover {
+  color: #e53935;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feedback-form label {
+  font-weight: 500;
+  margin-bottom: 2px;
+  color: #222;
+}
+
+.feedback-form input,
+.feedback-form textarea,
+.feedback-form select {
+  padding: 8px 10px;
+  border: 1.2px solid #bdbdbd;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #fafbfc;
+  resize: none;
+}
+
+.feedback-form input:focus,
+.feedback-form textarea:focus,
+.feedback-form select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px #1976d220;
+  outline: none;
+}
+
+.feedback-form input.invalid,
+.feedback-form textarea.invalid {
+  border-color: #e53935;
+  background: #fff6f6;
+}
+
+.feedback-form small.error-msg {
+  color: #e53935;
+  font-size: 0.97em;
+  margin-top: 2px;
+}
+
+.feedback-form button[type="submit"] {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 12px 0;
+  border-radius: 4px;
+  font-size: 1.08em;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+.feedback-form button[type="submit"]:hover:not(:disabled) {
+  background: #1565c0;
+}
+.feedback-form button[type="submit"]:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.success-msg {
+  color: #388e3c;
+  text-align: center;
+  margin-top: 14px;
+  font-weight: 500;
+}
+
+.error-msg {
+  color: #e53935;
+  text-align: center;
+  margin-top: 14px;
+  font-weight: 500;
+}
+
+/* Responsividade extra para telas pequenas */
+@media (max-width: 480px) {
+  .modal {
+    padding: 18px 6vw 18px 6vw;
+    min-width: unset;
+    max-width: 98vw;
+  }
+}

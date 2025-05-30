@@ -1,0 +1,86 @@
+<h2 style="text-align:center; margin-bottom: 24px;">Feedbacks</h2>
+
+<div *ngIf="loading" class="loading-msg">Carregando...</div>
+<div *ngIf="error" class="error-msg">{{ error }}</div>
+
+<div class="table-container" *ngIf="!loading && feedbacks.length > 0">
+  <table class="feedback-table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Mensagem</th>
+        <th>Tipo</th>
+        <th>Funcionário</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feedback of feedbacks">
+        <td>{{ feedback.title }}</td>
+        <td>{{ feedback.message }}</td>
+        <td>
+          <span [ngClass]="{
+            'positivo': feedback.type === 0,
+            'negativo': feedback.type === 1
+          }">
+            {{ feedback.type === 0 ? 'Positivo' : 'Negativo' }}
+          </span>
+        </td>
+        <td>{{ feedback.employee?.name }}</td>
+        <td>{{ feedback.date | date:'short' }}</td>
+        <td>
+          <button (click)="editarFeedback(feedback)" class="edit-btn">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!loading && feedbacks.length === 0" class="empty-msg">
+  Nenhum feedback encontrado.
+</div>
+
+<!-- Modal de edição -->
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+    <span class="close" (click)="fecharModal()">&times;</span>
+    <h2 style="text-align:center; margin-bottom: 24px;">
+      Editar Feedback
+    </h2>
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" class="feedback-form">
+      <div class="form-group">
+        <label for="title">Título:</label>
+        <input id="title" formControlName="title" [class.invalid]="feedbackForm.get('title')?.invalid && feedbackForm.get('title')?.touched" />
+        <small *ngIf="feedbackForm.get('title')?.invalid && feedbackForm.get('title')?.touched" class="error-msg">Título é obrigatório.</small>
+      </div>
+      <div class="form-group">
+        <label for="message">Mensagem:</label>
+        <textarea id="message" formControlName="message" [class.invalid]="feedbackForm.get('message')?.invalid && feedbackForm.get('message')?.touched"></textarea>
+        <small *ngIf="feedbackForm.get('message')?.invalid && feedbackForm.get('message')?.touched" class="error-msg">Mensagem é obrigatória.</small>
+      </div>
+      <div class="form-group">
+        <label for="type">Tipo:</label>
+        <select id="type" formControlName="type">
+          <option [value]="0">Positivo</option>
+          <option [value]="1">Negativo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="employeeId">ID do Funcionário:</label>
+        <input id="employeeId" type="number" formControlName="employeeId" [class.invalid]="feedbackForm.get('employeeId')?.invalid && feedbackForm.get('employeeId')?.touched" />
+        <small *ngIf="feedbackForm.get('employeeId')?.invalid && feedbackForm.get('employeeId')?.touched" class="error-msg">ID do Funcionário é obrigatório.</small>
+      </div>
+      <div class="form-group">
+        <label for="date">Data:</label>
+        <input id="date" type="datetime-local" formControlName="date" />
+      </div>
+      <button type="submit" [disabled]="feedbackForm.invalid || submitting">
+        <span *ngIf="submitting" class="spinner"></span>
+        Salvar Alterações
+      </button>
+    </form>
+    <div *ngIf="success" class="success-msg">{{ success }}</div>
+    <div *ngIf="error" class="error-msg">{{ error }}</div>
+  </div>
+</div>
